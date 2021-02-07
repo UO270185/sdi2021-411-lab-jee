@@ -1,6 +1,7 @@
 package com.uniovi.sdi;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class ServletCarrito extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		HashMap<String, Integer> carrito = (HashMap<String, Integer>) request.getSession().getAttribute("carrito");
-		//	No	hay	carrito,	creamos	uno	y	lo	insertamos	en	sesión
+		//	No	hay	carrito,	creamos	uno	y	lo	insertamos	en	sesiï¿½n
 		if (carrito == null) {
 			carrito = new HashMap<String, Integer>();
 			request.getSession().setAttribute("carrito", carrito);
@@ -50,7 +51,7 @@ public class ServletCarrito extends HttpServlet {
 		out.println("<HEAD><TITLE>Tienda	SDI:	carrito</TITLE></HEAD>");
 		out.println("<BODY>");
 		out.println(carritoEnHTML(carrito) + "<br>");
-		out.println("<a	href=\"tienda.html\">Volver</a></BODY></HTML>");
+		out.println("<a	href=\"index.jsp\">Volver</a></BODY></HTML>");
 	}
 
 	/**
