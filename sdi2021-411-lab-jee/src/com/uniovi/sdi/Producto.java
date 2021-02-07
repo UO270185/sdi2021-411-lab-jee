@@ -4,6 +4,8 @@ public class Producto {
 	private String nombre;
 	private String imagen;
 	private float precio;
+	
+	public Producto() {}
 
 	public Producto(String nombre, String imagen, float precio) {
 		this.nombre = nombre;
