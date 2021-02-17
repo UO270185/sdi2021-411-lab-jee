@@ -27,14 +27,14 @@ public class ProfessorController {
 		return "Added professor "+professor.getName() + " "+professor.getSurname()+", with dni "+professor.getDni()+" and occupation "+professor.getOccupation();
 	}
 
-	@RequestMapping("/professor/details/{dni}")
-	public String getDetail(@PathVariable String dni) {
-		return professorService.getProfessor(dni).toString();
+	@RequestMapping("/professor/details/{id}")
+	public String getDetail(@PathVariable Long id) {
+		return professorService.getProfessor(id).toString();
 	}
 
-	@RequestMapping("/professor/delete/{dni}")
-	public String deleteProfessor(@PathVariable String dni) {
-		professorService.deleteProfessor(dni);
+	@RequestMapping("/professor/delete/{id}")
+	public String deleteProfessor(@PathVariable Long id) {
+		professorService.deleteProfessor(id);
 		return "Deleting professor"; 
 	}
 }
