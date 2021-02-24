@@ -8,13 +8,13 @@ import javax.persistence.Id;
 public class Professor {
 	@Id
 	@GeneratedValue
-	private Long id;
+	private String id;
 	private String dni;
 	private String name;
 	private String surname;
 	private String occupation;
 	
-	public Professor(Long id, String dni, String name, String surname, String occupation) {
+	public Professor(String id, String dni, String name, String surname, String occupation) {
 		super();
 		this.id = id;
 		this.dni = dni;
@@ -25,11 +25,11 @@ public class Professor {
 	
 	public Professor() {}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
