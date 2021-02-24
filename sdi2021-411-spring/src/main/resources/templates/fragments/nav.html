@@ -12,20 +12,20 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
 
-				<li><a href="/">Home</a></li>
+				<li><a href="/" th:text="#{welcome.home}"></a></li>
 				<li id="marks-menu" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#"> Gestión de notas <span
-						class="caret"></span></a>
+					data-toggle="dropdown" href="#" th:text="#{marks.managing}"><span class="caret"></span>
+				</a>
 					<ul class="dropdown-menu">
-						<li><a href="/mark/add">Agregar Nota</a></li>
-						<li><a href="/mark/list">Ver Notas</a></li>
+						<li><a href="/mark/add"></a></li>
+						<li><a href="/mark/list"></a></li>
 					</ul></li>
 				<li id="users-menu" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#"> Gestión de Usuarios <span
-						class="caret"></span></a>
+					data-toggle="dropdown" href="#" th:text="#{users.managing}"><span class="caret"></span>
+				</a>
 					<ul class="dropdown-menu">
-						<li><a href="/user/add">Agregar Usuario</a></li>
-						<li><a href="/user/list">Ver Usuarios</a></li>
+						<li><a href="/user/add" th:text="#{users.add}"></a></li>
+						<li><a href="/user/list" th:text="#{users.list}"></a></li>
 					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -39,21 +39,26 @@
 						<li><a id="btnEnglish" value="EN"> <img
 								th:src="@{/img/if_uk_flag.png}"
 								style="border: 0; float: left; margin-right: 15px" /> <span
-								th:text="#{language.en}">Inglés</span>
+								th:text="#{language.en}"></span>
 						</a></li>
 						<li><a id="btnSpanish" value="ES"> <img
 								th:src="@{/img/if_spain_flag.png}"
 								style="border: 0; float: left; margin-right: 15px" /> <span
-								th:text="#{language.es}">Español</span>
+								th:text="#{language.es}"></span>
+						</a></li>
+						<li><a id="btnItalian" value="IT"> <img
+								th:src="@{/img/if_italian_flag.png}"
+								style="border: 0; float: left; margin-right: 15px" /> <span
+								th:text="#{language.it}"></span>
 						</a></li>
 					</ul></li>
-
 				<li><a href="/signup" th:text="#{signup.message}"> <span
-						class="glyphicon glyphicon-user"></span> Regístrate
+						class="glyphicon glyphicon-user"></span>
 				</a></li>
 				<li><a href="/login" th:text="#{login.message}"> <span
-						class="glyphicon glyphicon-log-in"></span> Identifícate
+						class="glyphicon glyphicon-log-in"></span>
 				</a></li>
+
 			</ul>
 		</div>
 	</div>
