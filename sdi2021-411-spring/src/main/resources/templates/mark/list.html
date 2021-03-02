@@ -21,10 +21,17 @@
 			siguientes:</p>
 
 		<button type="button" id="updateButton" class="btn btn-default">Actualizar</button>
-		<script>
+		<script th:inline="javascript">
+		/*<![CDATA[*/
 			$("#updateButton").click(function() {
-				$("#tableMarks").load('/mark/list/update');
-			});
+				 var numberPage = [[${param.page}]];
+				 var urlUpdate = '/mark/list/update';
+				 if (numberPage != null ){
+				 urlUpdate += "?page="+numberPage[0];
+				 }
+				 $("#tableMarks").load(urlUpdate);
+				 });
+				 /*]]>*/
 		</script>
 
 		<div class="table-responsive">
@@ -63,13 +70,16 @@
 																			"/mark/[[${mark.id}]]/noresend",
 																			function(
 																					data) {
-																				$(
-																						"#tableMarks")
-																						.load(
-																								'/mark/list/update');
-																			});
-														});
-										/*]]>*/
+																				
+																				var numberPage = [[${param.page}]];
+																				 var urlUpdate = '/mark/list/update';
+																				 if ( numberPage != null ){
+																				 urlUpdate += "?page="+numberPage[0];
+																				 }
+																				 $("#tableMarks").load(urlUpdate);
+																				 });
+																				 });
+																				 /*]]>*/									
 									</script>
 								</div>
 								<div th:unless="${mark.resend}">
@@ -85,10 +95,13 @@
 																			"/mark/[[${mark.id}]]/resend",
 																			function(
 																					data) {
-																				$(
-																						"#tableMarks")
-																						.load(
-																								'/mark/list/update');
+																				var numberPage = [[${param.page}]];
+																				 var urlUpdate = '/mark/list/update';
+																				 if ( numberPage != null ){
+																				 urlUpdate += "?page="+numberPage[0];
+																				 }
+																				 $("#tableMarks").load(urlUpdate);
+
 																			});
 														});
 										/*]]>*/
@@ -101,6 +114,8 @@
 				</tbody>
 			</table>
 		</div>
+		<div th:replace="fragments/pagination"/>
 	</div>
+	<footer th:replace="fragments/footer"/>
 </body>
 </html>

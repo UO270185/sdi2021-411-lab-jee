@@ -2,11 +2,15 @@ package com.uniovi.controllers;
 
 import java.security.Principal;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,14 +43,17 @@ public class MarksController {
 	private AddMarkValidator addMarkValidator;
 
 	@RequestMapping("/mark/list")
-	public String getList(Model model, Principal principal, @RequestParam(value="", required=false) String searchtext) {
+	public String getList(Model model, Pageable pageable, Principal principal, @RequestParam(value="", required=false) String searchtext) {
 		String dni = principal.getName(); // DNI es el name de la autenticación
 		User user = usersService.getUserByDni(dni);
+		Page<Mark>marks = new PageImpl<Mark>(new LinkedList<Mark>());
 		if (searchtext != null && !searchtext.isEmpty()) {
-			model.addAttribute("markList", marksService.searchMarksByDescriptionAndNameForUser(searchtext, user));
+			marks = marksService.searchMarksByDescriptionAndNameForUser(pageable, searchtext, user);
 		} else {
-			model.addAttribute("markList", marksService.getMarksForUser(user));
+			marks = marksService.getMarksForUser(pageable, user);
 		}
+		model.addAttribute("markList", marks.getContent());
+		model.addAttribute("page", marks);
 		return "mark/list";
 	}
 
@@ -98,10 +105,11 @@ public class MarksController {
 	}
 
 	@RequestMapping("/mark/list/update")
-	public String updateList(Model model, Principal principal) {
+	public String updateList(Model model, Pageable pageable, Principal principal) {
 		String dni = principal.getName(); // DNI es el name de la autenticación
 		User user = usersService.getUserByDni(dni);
-		model.addAttribute("markList", marksService.getMarksForUser(user));
+		Page<Mark>marks = marksService.getMarksForUser(pageable, user);
+		model.addAttribute("markList", marks.getContent());
 		return "mark/list :: tableMarks";
 	}
 
