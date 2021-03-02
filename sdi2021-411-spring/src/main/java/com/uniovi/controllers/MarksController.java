@@ -1,5 +1,10 @@
 package com.uniovi.controllers;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +23,15 @@ import com.uniovi.validators.AddMarkValidator;
 @Controller
 public class MarksController {
 
+	@Autowired
+	private HttpSession httpSession;
+
 	@Autowired // Inyectar el servicio
 	private MarksService marksService;
-	
+
 	@Autowired
 	private UsersService usersService;
-	
+
 	@Autowired
 	private AddMarkValidator addMarkValidator;
 
@@ -69,17 +77,17 @@ public class MarksController {
 		model.addAttribute("usersList", usersService.getUsers());
 		return "mark/edit";
 	}
-	
-	@RequestMapping(value="/mark/edit/{id}", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/mark/edit/{id}", method = RequestMethod.POST)
 	public String setEdit(Model model, @PathVariable Long id, @ModelAttribute Mark mark) {
 		Mark original = marksService.getMark(id);
 		// modificar solo score y description
 		original.setScore(mark.getScore());
 		original.setDescription(mark.getDescription());
 		marksService.addMark(original);
-		return "redirect:/mark/details/"+id; 
+		return "redirect:/mark/details/" + id;
 	}
-	
+
 	@RequestMapping("/mark/list/update")
 	public String updateList(Model model) {
 		model.addAttribute("markList", marksService.getMarks());

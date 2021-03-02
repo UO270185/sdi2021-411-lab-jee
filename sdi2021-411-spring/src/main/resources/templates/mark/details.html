@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Notaneitor</title>
+<title>Mark details</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet"
@@ -14,7 +14,9 @@
 <body>
 
 	<!-- Barra de Navegación superior -->
-	<nav class="navbar navbar-inverse">
+	<nav th:replace="fragments/nav"/>
+	
+	<!--  <nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -38,9 +40,7 @@
 				</ul>
 			</div>
 		</div>
-	</nav>
-
-
+	</nav>-->
 
 	<div class="container">
 		<h2>Detalles de la nota</h2>
