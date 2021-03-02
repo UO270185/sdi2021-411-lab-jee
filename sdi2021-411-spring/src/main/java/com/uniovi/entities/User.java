@@ -17,6 +17,7 @@ public class User {
 	private String password;
 	@Transient //propiedad que no se almacena en la tabla
 	private String passwordConfirm;
+	private String role;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Mark> marks;
@@ -89,5 +90,13 @@ public class User {
 
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }
