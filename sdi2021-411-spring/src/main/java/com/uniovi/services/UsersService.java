@@ -47,4 +47,11 @@ public class UsersService {
 	public void editUser(User user) {
 		usersRepository.save(user);
 	}
+	
+	public List<User> searchByNameAndLastname(String searchText) {
+		List<User> users = new ArrayList<User>();
+		searchText = "%" + searchText + "%";
+		users = usersRepository.searchByNameAndLastname(searchText);
+		return users;
+	}
 }
