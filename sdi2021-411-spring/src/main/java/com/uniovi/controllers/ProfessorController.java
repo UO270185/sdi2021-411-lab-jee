@@ -1,6 +1,11 @@
 package com.uniovi.controllers;
 
+import java.util.LinkedList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,15 +22,18 @@ import com.uniovi.validators.AddProfessorValidator;
 @Controller
 public class ProfessorController {
 
-	@Autowired 
+	@Autowired
 	private ProfessorService professorService;
-	
+
 	@Autowired
 	private AddProfessorValidator addProfessorValidator;
 
 	@RequestMapping("professor/list")
-	public String getList(Model model) {
-		model.addAttribute("professorList", professorService.getProfessors());
+	public String getList(Model model, Pageable pageable) {
+		Page<Professor> professor = new PageImpl<Professor>(new LinkedList<Professor>());
+		professor = professorService.getProfessors(pageable);
+		model.addAttribute("professorList", professor.getContent());
+		model.addAttribute("page", professor);
 		return "professor/list";
 	}
 
@@ -42,32 +50,31 @@ public class ProfessorController {
 	@RequestMapping("/professor/details/{id}")
 	public String getDetail(Model model, @PathVariable Long id) {
 		model.addAttribute("professor", professorService.getProfessor(id));
-		return "professor/details/"+id;
+		return "professor/details/" + id;
 	}
 
 	@RequestMapping("/professor/delete/{id}")
 	public String deleteProfessor(@PathVariable Long id) {
 		professorService.deleteProfessor(id);
-		return "redirect:/professor/list"; 
+		return "redirect:/professor/list";
 	}
-	
-	@RequestMapping(value="/professor/edit/{dni}")
-	public String getEdit(Model model, @PathVariable Long dni){
+
+	@RequestMapping(value = "/professor/edit/{dni}")
+	public String getEdit(Model model, @PathVariable Long dni) {
 		model.addAttribute("professor", professorService.getProfessor(dni));
 		return "professor/edit";
 	}
-	
-	@RequestMapping(value="/professor/edit/{dni}", method=RequestMethod.POST)
-	public String setEdit(Model model, @PathVariable String dni, @ModelAttribute Professor professor){
+
+	@RequestMapping(value = "/professor/edit/{dni}", method = RequestMethod.POST)
+	public String setEdit(Model model, @PathVariable String dni, @ModelAttribute Professor professor) {
 		professor.setDni(dni);
 		professorService.addProfessor(professor);
-		return "redirect:/professor/detail/"+dni;
+		return "redirect:/professor/detail/" + dni;
 	}
-	
-	
-	@RequestMapping(value="/professor/add")
+
+	@RequestMapping(value = "/professor/add")
 	public String getProfessor(Model model) {
-		model.addAttribute("professor",new Professor());
+		model.addAttribute("professor", new Professor());
 		return "professor/add";
 	}
 }

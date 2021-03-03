@@ -7,6 +7,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Professor;
@@ -18,11 +20,9 @@ public class ProfessorService {
 	@Autowired
 	private ProfessorRepository professorRepository;
 
-	public List<Professor> getProfessors() {
-		List<Professor> professors = new ArrayList<Professor>();
-		professorRepository.findAll().forEach(professors::add);
+	public Page<Professor> getProfessors(Pageable pageable) {
+		Page<Professor> professors = professorRepository.findAll(pageable);
 		return professors;
-
 	}
 	
 	public Professor getProfessor(Long id){

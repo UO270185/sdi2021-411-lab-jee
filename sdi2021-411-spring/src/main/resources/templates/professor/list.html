@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Profesores</title>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Profesores</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<!-- Barra de Navegación superior 
+	<!-- Barra de Navegación superior 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -30,38 +33,41 @@
   </div>
 </nav> -->
 
-<nav th:replace="fragments/nav" />
+	<nav th:replace="fragments/nav" />
 
-<div class="container">
-  <h2>Profesores</h2>
-  <p>Los profesores que actualmente figuran en el sistema son los siguientes:</p>                                                                                      
-  <div class="table-responsive">          
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th class="col-md-1">id</th>
-        <th>Descripción</th>
-        <th>Puntuación</th>
-		<th class="col-md-1"> </th>
-		<th class="col-md-1"> </th>
-		<th class="col-md-1"> </th>
-      </tr>
-    </thead>
-	<tbody>
-	  <tr th:each="professor : ${professorList}">
-	    <td th:text="${professor.id}"> 1</td>
-	    <td th:text="${professor.name}"> The name</td>
-	    <td th:text="${professor.surname}">The surname</td>
-	    <td th:text="${professor.occupation}">The category</td>
-	    <td><a th:href="${'/professor/details/' + professor.id}">detalles</a></td>
-	    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/professor/edit/' + professor.id}">Modificar</a></td>
-	    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/professor/delete/' + professor.id}">Eliminar</a></td>
-	  </tr>
-	</tbody>
-  </table>
-  </div>
-</div>
-
-
+	<div class="container">
+		<h2>Profesores</h2>
+		<p>Los profesores que actualmente figuran en el sistema son los
+			siguientes:</p>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th class="col-md-1">id</th>
+						<th>Descripción</th>
+						<th>Puntuación</th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="professor : ${professorList}">
+						<td th:text="${professor.id}">1</td>
+						<td th:text="${professor.name}">The name</td>
+						<td th:text="${professor.surname}">The surname</td>
+						<td th:text="${professor.occupation}">The category</td>
+						<td><a th:href="${'/professor/details/' + professor.id}">detalles</a></td>
+						<td><a sec:authorize="hasRole('ROLE_ADMIN')"
+							th:href="${'/professor/edit/' + professor.id}">Modificar</a></td>
+						<td><a sec:authorize="hasRole('ROLE_ADMIN')"
+							th:href="${'/professor/delete/' + professor.id}">Eliminar</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<footer th:replace="fragments/pagination" />
+	</div>
+	<footer th:replace="fragments/footer" />
 </body>
 </html>
