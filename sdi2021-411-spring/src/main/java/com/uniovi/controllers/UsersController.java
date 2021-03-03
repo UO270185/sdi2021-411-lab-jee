@@ -1,5 +1,8 @@
 package com.uniovi.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.uniovi.entities.Mark;
 import com.uniovi.entities.User;
+import com.uniovi.services.MarksService;
 import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
@@ -20,10 +25,10 @@ import com.uniovi.validators.SignUpFormValidator;
 
 @Controller
 public class UsersController {
-	
+
 	@Autowired
 	private RolesService rolesService;
-	
+
 	@Autowired
 	private UsersService usersService;
 
@@ -61,7 +66,20 @@ public class UsersController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String dni = auth.getName();
 		User activeUser = usersService.getUserByDni(dni);
-		model.addAttribute("markList", activeUser.getMarks());
+		if (activeUser.getRole().equals("ROLE_STUDENT"))
+			model.addAttribute("markList", activeUser.getMarks());
+		else if (activeUser.getRole().equals("ROLE_PROFESSOR")) {
+			List<User> users = new ArrayList<User>();
+			List<Mark> marks = new ArrayList<Mark>();
+			for (User u : usersService.getUsers())
+				users.add(u);
+			for (User u : users) {
+				for (Mark m : u.getMarks())
+					marks.add(m);
+			}
+			for (Mark m : marks)
+				model.addAttribute("markList", m);
+		}
 		return "home";
 	}
 

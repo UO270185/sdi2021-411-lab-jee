@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<!-- Barra de Navegación superior -->
+<!-- Barra de Navegación superior 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -28,9 +28,9 @@
       </ul>
     </div>
   </div>
-</nav>
+</nav> -->
 
-
+<nav th:replace="fragments/nav" />
 
 <div class="container">
   <h2>Profesores</h2>
@@ -54,7 +54,8 @@
 	    <td th:text="${professor.surname}">The surname</td>
 	    <td th:text="${professor.occupation}">The category</td>
 	    <td><a th:href="${'/professor/details/' + professor.id}">detalles</a></td>
-	    <td><a th:href="${'/professor/delete/' + professor.id}">eliminar</a></td>
+	    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/professor/edit/' + professor.id}">Modificar</a></td>
+	    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/professor/delete/' + professor.id}">Eliminar</a></td>
 	  </tr>
 	</tbody>
   </table>

@@ -3,6 +3,7 @@ package com.uniovi;
 import java.util.List;
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,9 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @Configuration
 public class CustomConfiguration implements WebMvcConfigurer {
 
+//	@Value("${sprint.data.web.pageable.page-parameter")
+//	private int page;
+	
 	@Bean
 	public LocaleResolver localeResolver() {
 		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
