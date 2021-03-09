@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.uniovi.tests.pageobjects.PO_HomeView;
+import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_Properties;
 import com.uniovi.tests.pageobjects.PO_RegisterView;
 import com.uniovi.tests.pageobjects.PO_View;
@@ -138,6 +139,77 @@ public class NotaneitorTests {
 		PO_RegisterView.fillForm(driver, "", "Josefo", "Perez", "77777", "77777");
 		// Compruebo el error de campo vacío.
 		PO_RegisterView.checkKey(driver, "Error.empty", PO_Properties.getSPANISH());
+	}
+
+	// PR07. Identificación válida con usuario de ROL usuario ( 99999990A/123456).
+	@Test
+	public void PR07() {
+		// Vamos al formulario de login
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "99999990A", "123456");
+		PO_View.getP();
+		// Comprobamos que entramos en la sección privada
+		PO_View.checkElement(driver, "text", "Notas del usuario");
+	}
+	
+	// PR08. Identificación válida con usuario de ROL profesor ( 99999993D/123456).
+	@Test
+	public void PR08() {
+		// Vamos al formulario de login
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "99999993D", "123456");
+		PO_View.getP();
+		// Comprobamos que entramos en la sección privada
+		PO_View.checkElement(driver, "text", "Notas de los alumnos");
+	}
+	
+	// PR09. Identificación válida con usuario de ROL admin ( 99999988F/123456).
+	@Test
+	public void PR09() {
+		// Vamos al formulario de login
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "99999988F", "123456");
+		PO_View.getP();
+		// Comprobamos que entramos en la sección privada
+		PO_View.checkElement(driver, "text", "Opciones de administrador");
+	}
+	
+	// PR010. Identificación inválida con usuario de ROL alumno ( 99999990A/123456).
+	@Test
+	public void PR10() {
+		// Vamos al formulario de login
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "99999990A", "123455");
+		PO_View.getP();
+		// Compruebo el error.
+		PO_LoginView.checkKey(driver, "Error.empty", PO_Properties.getSPANISH());
+	}
+	
+	// PR011. Identificación inválida con usuario de ROL alumno ( 99999990A/123456).
+	@Test
+	public void PR11() {
+		// Vamos al formulario de login
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "99999990A", "123455");
+		PO_View.getP();
+		// Comprobamos que entramos en la sección privada
+		PO_View.checkElement(driver, "text", "Notas del usuario");
+		
+		// Hacemos logout
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+		PO_View.getP();
+		// Comprobamos la desconexión
+		PO_View.checkElement(driver, "text", "Login");
 	}
 
 }
